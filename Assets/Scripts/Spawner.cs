@@ -15,6 +15,10 @@ public class Spawner : MonoBehaviour
     public float decrease;
 
     public GameObject player;
+    private int spawnPoint = 0;
+
+    private void Start() {
+    }
 
     private void Update()
     {
@@ -22,7 +26,13 @@ public class Spawner : MonoBehaviour
         {
             if (timeBtwSpawns <= 0)
             {
-                Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+                // make sure the enemy spawns at a different spawn point each time
+                int prevSpawnPoint = spawnPoint;
+                while (spawnPoint == prevSpawnPoint)
+                {
+                    spawnPoint = Random.Range(0, spawnPoints.Length);
+                }
+                Transform randomSpawnPoint = spawnPoints[spawnPoint];
                 GameObject randomEnemy = enemies[Random.Range(0, enemies.Length)];
 
                 //Spawn random enemy after wait time
